@@ -16,10 +16,10 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3 # Updated to v3
+        uses: actions/checkout@v3
 
       - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3 # Updated to v3
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
@@ -35,9 +35,16 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: |
-          npm install -g vercel
-          vercel --prod --token=$VERCEL_TOKEN
+        run: vercel --prod --token=$VERCEL_TOKEN
+
+      - name: Debug - List files
+        run: ls -la
+
+      - name: Debug - Environment Variables
+        run: printenv
