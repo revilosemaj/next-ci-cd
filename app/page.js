@@ -1,3 +1,3 @@
 export default function Home() {
-  return <div>Hello Nextjs app</div>;
+  return <div>Hello Vercel</div>;
 }
